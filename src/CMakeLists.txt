@@ -1,0 +1,24 @@
+SET(TARGET game)
+
+AUX_SOURCE_DIRECTORY(. SRC_LIST)
+
+
+FIND_PACKAGE(wxWidgets COMPONENTS gl core base)
+IF (wxWidgets_FOUND)
+    INCLUDE(${wxWidgets_USE_FILE})
+    # INCLUDE_DIRECTORIES(include)
+    ADD_DEFINITIONS(${wxWidgets_CXX_FLAGS} -std=c++11 -I.)
+    ADD_EXECUTABLE(${TARGET} ${SRC_LIST})
+    FIND_PACKAGE(DevIL)
+    IF (IL_FOUND)
+        INCLUDE(${IL_INCLUDE_DIR})
+        TARGET_LINK_LIBRARIES(${TARGET} ${wxWidgets_LIBRARIES}
+                    ${IL_LIBRARIES} ${ILU_LIBRARIES})
+    ELSE (IL_FOUND)
+        MESSAGE("DevIL NOT FOUND!")
+    ENDIF(IL_FOUND)
+ELSE (wxWidgets_FOUND)
+    MESSAGE("wxWidgets NOT FOUND!")
+ENDIF (wxWidgets_FOUND)
+
+INSTALL(TARGETS ${TARGET} DESTINATION .)
