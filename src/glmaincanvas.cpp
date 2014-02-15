@@ -1,20 +1,14 @@
 #include "glmaincanvas.h"
-#include "glapp.h"
 
 #include <iostream>
 
+#include <wx/log.h>
 #include <wx/dcclient.h>
 
 #include <GL/gl.h>
-#include <GL/glu.h>
 
 #include "TextureManager.h"
 #include "AnimFileLoader.h"
-
-static int attriblist[] = {
-    WX_GL_RGBA, WX_GL_MIN_RED, 1, WX_GL_MIN_GREEN, 1,
-    WX_GL_MIN_BLUE, 1, WX_GL_DEPTH_SIZE, 1, WX_GL_DOUBLEBUFFER, None
-};
 
 static void CheckGLError()
 {
@@ -40,6 +34,8 @@ GLMainContext::GLMainContext(wxGLCanvas *canvas)
     SetCurrent(*canvas);
 
     InitGL();
+    wxSize size = canvas->GetClientSize();
+    ResizeGL(size.x, size.y);
     CheckGLError();
 
     // Load the grass image and set the color key

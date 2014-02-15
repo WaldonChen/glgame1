@@ -9,31 +9,31 @@ class GLMainCanvas;
 
 class GLMainWindow: public wxFrame
 {
-	public:
+public:
+    GLMainWindow(wxWindow* parent, wxWindowID id=wxID_ANY,
+                 const wxPoint& pos=wxDefaultPosition,
+                 const wxSize& size=wxDefaultSize);
+    virtual ~GLMainWindow();
 
-		GLMainWindow(wxWindow* parent, wxWindowID id=wxID_ANY,
-                     const wxPoint& pos=wxDefaultPosition,
-                     const wxSize& size=wxDefaultSize);
-		virtual ~GLMainWindow();
+    //(*Declarations(GLMainWindow)
+    //*)
 
-		//(*Declarations(GLMainWindow)
-		//*)
+protected:
+    //(*Identifiers(GLMainWindow)
+    //*)
 
-	protected:
+private:
+    //(*Handlers(GLMainWindow)
+    /* void OnKeyDown(wxKeyEvent &);
+       void OnKeyUp(wxKeyEvent &); */
+    //*)
 
-		//(*Identifiers(GLMainWindow)
-		//*)
+    DECLARE_EVENT_TABLE()
 
-	private:
+    static const long ID_STATUSBAR;
+    wxStatusBar *m_statusbar;
 
-		//(*Handlers(GLMainWindow)
-        /* void OnKeyDown(wxKeyEvent &);
-        void OnKeyUp(wxKeyEvent &); */
-		//*)
-
-		DECLARE_EVENT_TABLE()
-
-		GLMainCanvas *m_GLMainCanvas;
+    GLMainCanvas *m_GLMainCanvas;
 };
 
 #endif

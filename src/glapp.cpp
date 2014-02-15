@@ -26,9 +26,9 @@ bool GLApp::OnInit()
     wxInitAllImageHandlers();
     if ( wxsOK )
     {
-    	GLMainWindow* Frame = new GLMainWindow(0);
-    	Frame->Show();
-    	SetTopWindow(Frame);
+        GLMainWindow* Frame = new GLMainWindow(0);
+        Frame->Show();
+        SetTopWindow(Frame);
 
         m_pLogFile = fopen("log.txt", "w+");
         delete wxLog::SetActiveTarget(new wxLogStderr(m_pLogFile));

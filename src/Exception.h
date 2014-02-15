@@ -7,12 +7,12 @@
 class CException : public std::exception
 {
 public:
-	const char* what() const throw() { return m_strMessage.c_str(); }
+    const char* what() const throw() { return m_strMessage.c_str(); }
 
-	CException(const std::string& strMessage="") : m_strMessage(strMessage)  { }
-	virtual ~CException() throw() { }
+    CException(const std::string& strMessage="") : m_strMessage(strMessage)  { }
+    virtual ~CException() throw() { }
 
-	std::string m_strMessage;
+    std::string m_strMessage;
 };
 
 #endif  // _EXCEPTION_H_

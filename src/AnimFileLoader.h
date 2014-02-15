@@ -8,18 +8,19 @@
 class CAnimFileLoader
 {
 public:
-	CAnimFileLoader(const std::string& strFile, unsigned imgsPerRow, 
-			unsigned imgWidth, unsigned imgHeight);
-	~CAnimFileLoader();
+    CAnimFileLoader(const std::string& strFile, unsigned imgsPerRow,
+                    unsigned imgWidth, unsigned imgHeight);
+    ~CAnimFileLoader();
 
-	CImageList GetAnimation(unsigned startIndex, unsigned stopIndex);
+    CImageList GetAnimation(unsigned startIndex, unsigned stopIndex);
 
 private:
-	std::string m_strFileName;
+    std::string m_strFileName;
 
-	unsigned m_uImgWidth;
-	unsigned m_uImgHeight;
-	unsigned m_uImgsPerRow;
+    unsigned m_uImgWidth;
+    unsigned m_uImgHeight;
+    unsigned m_uImgsPerRow;
 };
 
 #endif  // _ANIMFILELOADER_H_
+
