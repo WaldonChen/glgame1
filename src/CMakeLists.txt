@@ -2,23 +2,40 @@ SET(TARGET game)
 
 AUX_SOURCE_DIRECTORY(. SRC_LIST)
 
+IF (WIN32)
+    SET(wxWidgets_ROOT_DIR "D:/apps/wxWidgets-3.0.0")
+    # SET(wxWidgets_LIB_DIR ${wxWidgets_ROOT_DIR}/lib/gcc_dll)
+    # SET(wxWidgets_wxrc_EXECUTABLE ${wxWidgets_ROOT_DIR}/utils/wxrc/gcc_mswuddll/wxrc.exe)
+    # SET(wxWidgets_CONFIGURATION mswud)
+ENDIF (WIN32)
 
-FIND_PACKAGE(wxWidgets COMPONENTS gl core base)
-IF (wxWidgets_FOUND)
-    INCLUDE(${wxWidgets_USE_FILE})
-    # INCLUDE_DIRECTORIES(include)
-    ADD_DEFINITIONS(${wxWidgets_CXX_FLAGS} -std=c++11 -I.)
-    ADD_EXECUTABLE(${TARGET} ${SRC_LIST})
-    FIND_PACKAGE(DevIL)
-    IF (IL_FOUND)
-        INCLUDE(${IL_INCLUDE_DIR})
-        TARGET_LINK_LIBRARIES(${TARGET} ${wxWidgets_LIBRARIES}
-                    ${IL_LIBRARIES} ${ILU_LIBRARIES})
-    ELSE (IL_FOUND)
-        MESSAGE("DevIL NOT FOUND!")
-    ENDIF(IL_FOUND)
-ELSE (wxWidgets_FOUND)
-    MESSAGE("wxWidgets NOT FOUND!")
-ENDIF (wxWidgets_FOUND)
+FIND_PACKAGE(wxWidgets REQUIRED gl core base)
+INCLUDE(${wxWidgets_USE_FILE})
+ADD_DEFINITIONS(${wxWidgets_CXX_FLAGS} -I. )
+ADD_EXECUTABLE(${TARGET} ${SRC_LIST})
+
+IF (WIN32)
+    SET(DevIL_ROOT_DIR "D:/Program Files (x86)/DevIL")
+    SET(IL_INCLUDE_DIR ${DevIL_ROOT_DIR}/include)
+    SET(IL_LIBRARIES ${DevIL_ROOT_DIR}/lib/DevIL.lib)
+    SET(ILU_LIBRARIES ${DevIL_ROOT_DIR}/lib/ILU.lib})
+    SET(ILUT_LIBRARIES ${DevIL_ROOT_DIR}/lib/ILUT.lib)
+ENDIF (WIN32)
+
+FIND_PACKAGE(DevIL)
+INCLUDE_DIRECTORIES(${IL_INCLUDE_DIR})
+
+FIND_PACKAGE(OpenGL)
+INCLUDE_DIRECTORIES(${OPENGL_INCLUDE_DIR})
+
+IF (WIN32)
+    SET(USE_GUI -Wl,--subsystem,windows -mwindows)
+ELSE (WIN32)
+    SET(USE_GUI )
+ENDIF (WIN32)
+
+TARGET_LINK_LIBRARIES(${TARGET} ${wxWidgets_LIBRARIES}
+    ${IL_LIBRARIES} ${OPENGL_LIBRARIES} ${USE_GUI})
 
 INSTALL(TARGETS ${TARGET} DESTINATION .)
+# INSTALL(FILES ${DevIL_ROOT_DIR}/lib/DevIL.dll DESTINATION .)

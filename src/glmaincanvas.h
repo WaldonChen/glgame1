@@ -6,7 +6,7 @@
 #include <wx/glcanvas.h>
 #include <wx/timer.h>
 
-#include "./Image.h"
+#include "Image.h"
 #include "AnimatedSprite.h"
 
 /**
